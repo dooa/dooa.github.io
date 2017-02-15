@@ -1,0 +1,134 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>	
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="keywords" content="pass, phrase, generator, encryption, md5, javascript" />
+	<meta name="author" content="Doga Gencer" />
+	<meta name="robots" content="index" />
+	<title>Gnot - Soz Obegi Ureteci</title>
+	
+	<script src="scripts/entropy.js"></script>
+	<script src="scripts/aes.js"></script>
+	<script src="scripts/aesprng.js"></script>
+	<script src="scripts/md5.js"></script>
+	<script src="scripts/wordtab.js"></script>
+	<script src="scripts/utf-8.js"></script>
+	<script src="scripts/clipboard.min.js"></script>
+
+
+	<link href="content/bootstrap.css" rel="stylesheet"/>
+	<link href="content/site.css" rel="stylesheet"/>
+</head>
+
+<div class="container">
+	<center>
+	<div>
+		<img class="img-responsive logo" src="images/gnot.png">
+	</div>
+	</center>
+    <div id="Govde" class="text-center">
+	<h3>Soz Obegi Ureteci</h3>
+	<p>
+	Cogu insan, hicbir anlamlari olmasa da, kendi dillerindeki soz obeklerini
+	gelisiguzel harf ve rakamlardan olusan sifrelerden daha kolay hatirlanabilir bulur.
+	Belirli bir dildeki harf dizilerinin sinirli olmasi nedeniyle bu girislerin bilgi
+	yogunlugu ve entropisi dusuktur ve bir soz obeginin tahmin edilememesi icin 
+	anlamsiz bir sifreden daha uzun olmasi beklenir.
+	</p>
+	<p>
+	Yine de cogu kisi bu obekleri tercih eder. Bulundugunuz sayfa, bu obekleri Ingilizce olarak
+	uretir. Kac obek yaratilacagini (en fazla 100) ve kacar kelimeden olusacaklarini 
+	belirttikten sonra <b>Uret</b> tusuna bastiginizda <b>Sozcuk Obekleri</b> bolumu 
+	verilmis <em>anahtar</em> ile olusturulan obeklerle dolacaktir. Bahsi gecen <em>anahtar</em>, 
+	<b>Kaynak</b> bolumunde pseudorandom olarak uretilebilen bir anahtar da olabilir, kullanici
+	tarafindan belirlenen herhangi bir metin de. Ister <b>Kaynak Uret</b> tusuyla yeni bir kaynak
+	uretin isterseniz kendi kaynaginizi kendiniz belirtin. Uretilen obekler tamamiyle kaynak
+	tarafindan olusturulacagi icin guvenlikleri de kaynak kadar olacaktir. Dolayisiyla kendi 
+	kaynaginizi kendiniz belirtecekseniz kaynagin, bundan ureteceginiz obekler kadar rastgele 
+	ve uzun olmasina dikkat etmenizini oneririm.
+	</p>
+	<p>
+	Eger <b>Sira No</b> secenegi isaretliyse uretilen obeklerin basina sira sayilari eklenecektir.
+	Ayrica <b>Buyuk Harf</b> secenegi isaretliyse, tum uretilen obekler buyuk harflerden olusacaktir.
+	Ek olarak, <b>Imzalari Ekle</b> secenegi de isaretliyse obeklerin altina MD5 imzalari da eklenecektir;
+	sifre dogrulayici programlar hafizadan yer kazanmak ve sifrelerin guvenligi icin genellikle obekler 
+	yerine imzalari tercih ederler.
+	</p>
+	<p>
+	<u><b>Ornegin:</b></u> <b>Kelimeler</b>i 2 olarak ayarlayip <b>Buyuk Harf</b> secenegini secerseniz 
+	"HORA METAPHOR", "CLUBBY HEXYL", "QUONDAM NOWT", "SINKAGE DEALER", "IODOUS OTALGIA" gibi obekler 
+	elde edersiniz.
+	</p>
+	
+<form name="seed" action="#" onsubmit="return false;">
+
+<h3>Kaynak</h3>
+
+<p align="center">
+<input id="kaynak" type="text" name="text" size="80" maxlength="1024" class="form-control"
+       style="background-color: rgb(250, 250, 200); color: #000000; font-family: monospace;"
+       onfocus="ce();" onblur="ce();" onkeydown="ce();" />
+<br />
+<input type="radio" checked="checked" name="keytype" onfocus="ce();" onblur="ce();" onclick="ce();" />&nbsp;Metin
+<input type="radio" name="keytype" onfocus="ce();" onblur="ce();" onclick="ce();" />&nbsp;Hexadecimal
+<p>
+	<input type="button" class="btn btn-primary btn-sm" name="generate" value="Kaynak Uret" onfocus="ce();" onblur="ce();" onclick="ce(); Generate_seed();" />
+	<input type="button" class="btn btn-primary btn-sm" value="Temizle" onfocus="ce();" onblur="ce();" onclick="ce(); document.seed.text.value = '';" />
+	<button class="btn btn-primary btn-sm" data-clipboard-target="#kaynak">Panoya kopyala</button>
+</p>
+</form>
+
+<form name="results" action="#" onsubmit="return false;">
+
+<h3>Soz Obekleri</h3>
+
+<p align="center">
+<textarea name="text" rows="24" cols="80" class="form-control"
+    style="border-color: blue; background-color: rgb(255, 255, 192); color: #000000;"
+    onfocus="ce();" onblur="ce();" onclick="ce();" onkeydown="ce();">
+</textarea>
+
+<br />
+
+<input type="button" name="generate" value=" Generate " onfocus="ce();" onblur="ce();" onclick="ce(); GeneratePassPhrases();" />
+&nbsp;
+<input type="button" value=" Clear " onfocus="ce();" onblur="ce();" onclick="ce(); document.results.text.value = '';" />
+&nbsp;
+<input type="reset" value=" Reset " onfocus="ce();" onblur="ce();" onclick="ce();" />
+&nbsp;
+<input type="button" value=" Select " onfocus="ce();" onblur="ce();" onclick="ce(); document.results.text.select();" />
+</p>
+
+<p align="center">
+Phrases:&nbsp;<input type="text" name="howmany" size="4" maxlength="6" value="20"
+       onfocus="ce();" onblur="ce();" onkeydown="ce();" />
+&nbsp;
+Words:&nbsp;<input type="text" name="howlong" size="4" maxlength="6" value="6"
+       onfocus="ce();" onblur="ce();" onkeydown="ce();" />
+&nbsp;
+Bits:&nbsp;<input type="text" name="bits" size="5" maxlength="6" value=""
+       onfocus="ce();" onblur="ce(); bitsWord();" onkeydown="ce();" />
+       
+<br />
+
+<input type="checkbox" checked="checked" name="number"
+       onfocus="ce();" onblur="ce();" onkeydown="ce();" />&nbsp;Number
+&nbsp;
+<input type="checkbox" name="uppercase"
+       onfocus="ce();" onblur="ce();" onkeydown="ce();" />&nbsp;upper&nbsp;case
+&nbsp;
+<input type="checkbox" name="signatures"
+       onfocus="ce();" onblur="ce();" onkeydown="ce();" />&nbsp;Include&nbsp;signatures
+       
+</p>
+</form>
+<script>
+    var clipboard = new Clipboard('.btn');
+    clipboard.on('success', function(e) {
+        console.log(e);
+    });
+    clipboard.on('error', function(e) {
+        console.log(e);
+    });
+</script>
+</body>
+</html>

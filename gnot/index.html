@@ -2,8 +2,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta author="Doga Gencer">
+	<meta name="author" content="Doga Gencer" />
     <title>GNot - Mesaj Sifrele</title>
+	
     <link href="content/bootstrap.css" rel="stylesheet"/>
 	<link href="content/site.css" rel="stylesheet"/>
 
@@ -20,10 +21,12 @@
 </head>
 <body>
 <div class="container">
-	<div id="logo">
-		<img class="img-responsive" src="images/gnot.png">
-	</div>
     <div id="Govde" class="text-center">
+		<center>
+		<div>
+			<img class="img-responsive logo" src="images/gnot.png">
+			</div>
+		</center>
         <form name="key" action="#" onsubmit="return false;">
             <h3>Anahtar</h3>
             <!-- +FULL -->
@@ -38,7 +41,7 @@
                 uzunlugunda olmalidir. <b>Olustur</b> tusu secilen bicimde (metin ya da hexadecimal)
                 ve guvenlik icin gerekli olan uzunlukta, bu sayfa yuklendigi anda uretilen
                 pseudorandom bir numara ile anahtar yaratir. Bu anahtarlarla yazistiginiz kisi
-                ile kullanmak uzere degis tokus edebileceginiz soz obekleri istiyorsaniz <a href="pass_phrase.html">
+                ile kullanmak uzere degis tokus edebileceginiz soz obekleri istiyorsaniz <a href="obek.html">
                 Soz Obegi Ureteci</a>'ni kullanabilirsiniz.
             </p>
 
@@ -53,8 +56,7 @@
                 <input type="radio" name="keytype" />&nbsp;Hexadecimal
 				<p>                
 					<input type="button" class="btn btn-primary btn-sm" value="Olustur" onclick="Generate_key();" />                
-					<input type="button" class="btn btn-primary btn-sm" value="Temizle" onclick="document.key.text.value = '';" />                
-					<!--<input type="button" class="btn btn-primary btn-sm" value="Sec" onclick="document.key.text.select();" />--!>
+					<input type="button" class="btn btn-primary btn-sm" value="Temizle" onclick="document.key.text.value = '';" />                					
 					<button class="btn btn-primary btn-sm" data-clipboard-target="#anahtar">Panoya kopyala</button>
 				</p>
             </p>
@@ -87,8 +89,7 @@
 					<input type="radio" name="encoding" />&nbsp;Base64
 				</p>
                 <input type="button" class="btn btn-primary btn-sm" name="encrypt" value="Sifrele" onclick="Encrypt_text();" />
-				<input type="button" class="btn btn-primary btn-sm" value="Temizle" onclick="document.plain.text.value = '';" />
-                <!--<input type="button" class="btn btn-primary btn-sm" value="Sec" onclick="document.plain.text.select();" />--!>	
+				<input type="button" class="btn btn-primary btn-sm" value="Temizle" onclick="document.plain.text.value = '';" />                	
 				<button class="btn btn-primary btn-sm" data-clipboard-target="#not">Panoya kopyala</button>
             </p>
         </form>
@@ -114,7 +115,6 @@
                 <br />
                 <input type="button" class="btn btn-primary btn-sm" name="decrypt" value="Sifreyi Coz" onclick="Decrypt_text();" />                
                 <input type="button" class="btn btn-primary btn-sm" value="Temizle" onclick="document.cipher.text.value = '';" />
-                <!--<input type="button" class="btn btn-primary btn-sm" value="Sec" onclick="document.cipher.text.select();" />--!>
 				<button class="btn btn-primary btn-sm" data-clipboard-target="#sifreliNot">Panoya kopyala</button>
             </p>
         </form>
