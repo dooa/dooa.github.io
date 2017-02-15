@@ -1,0 +1,125 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GNot Baþlangý&#231; - My ASP.NET Application</title>
+    <link href="/content/bootstrap.css" rel="stylesheet"/>
+	<link href="/content/site.css" rel="stylesheet"/>
+
+    <script src="/scripts/modernizr-2.6.2.js"></script>
+    <script src="/scripts/javascrypt/aes.js"></script>
+	<script src="/scripts/javascrypt/entropy.js"></script>
+	<script src="/scripts/javascrypt/aesprng.js"></script>
+	<script src="/scripts/javascrypt/lecuyer.js"></script>
+	<script src="/scripts/javascrypt/md5.js"></script>
+	<script src="/scripts/javascrypt/armour.js"></script>
+	<script src="/scripts/javascrypt/utf-8.js"></script>
+	<script src="/scripts/javascrypt/jscrypt.js"></script>
+
+
+</head>
+<body>
+<div class="container">
+    <div id="Govde" class="text-center">
+        <form name="key" action="#" onsubmit="return false;">
+            <h3>Anahtar</h3>
+            <!-- +FULL -->
+            <p>
+                Asagidaki notu sifrelemek icin kullanmak istediginiz anahtari girin.
+                Eger <b>Metin</b> seciliyse, anahtar 1024 karakter uzunluga kadar istenen
+                karakterlerden olusabilir; anahtariniz sik kullanilan kelimelerden veya
+                tekrarlardan olusuyorsa guvenliginiz icin en az 60 karakter kullandiginizdan
+                emin olun. Eger <b>Hexadecimal (16'lik sayi sistemi)</b> seciliyse,
+                anahtar hexadecimal rakamlardan (<tt>0</tt>-<tt>9</tt>, <tt>a</tt>-<tt>f</tt>
+                (veya <tt>A</tt>-<tt>F</tt>)) olusmali ve 32 bit (64 hexadecimal rakam)
+                uzunlugunda olmalidir. <b>Olustur</b> tusu secilen bicimde (metin ya da hexadecimal)
+                ve guvenlik icin gerekli olan uzunlukta, bu sayfa yuklendigi anda uretilen
+                pseudorandom bir numara ile anahtar yaratir. Bu anahtarlarla yazistiginiz kisi
+                ile kullanmak uzere degis tokus edebileceginiz soz obekleri istiyorsaniz <a href="pass_phrase.html">
+                Soz Obegi Ureteci</a>'ni kullanabilirsiniz.
+            </p>
+
+            <!-- -FULL -->
+
+            <p align="center">
+                <input type="text" name="text" size="80" maxlength="1024"
+                       style="background-color: rgb(255, 255, 200); color: #000000; font-family: monospace;"
+                       onfocus="ce();" onblur="ce();" onkeydown="ce();" />
+                <br />
+                <input type="radio" checked="checked" name="keytype" />&nbsp;Metin
+                &nbsp;
+                <input type="radio" name="keytype" />&nbsp;Hexadecimal
+                &nbsp;
+                <input type="button" value="Olustur" onclick="Generate_key();" />
+                &nbsp;
+                <input type="button" value="Temizle" onclick="document.key.text.value = '';" />
+                &nbsp;
+                <input type="button" value="Sec" onclick="document.key.text.select();" />
+            </p>
+        </form>
+
+        <form name="plain" action="#" onsubmit="return false;">
+            <h3>Not</h3>
+
+            <!-- +FULL -->
+            <p>
+                Sifrelemek istediginiz notu buraya yazin ya da yapistirin. Eger bir
+                dosyayi sifrelemek istiyorsaniz once dosyayi
+                <a href="http://www.fourmilab.ch/webtools/base64/" target="_blank">Base64</a>
+                ile metin olarak kodlayin. Ustteki anahtar ile girilen notu sifrelemek
+                icin <b>Sifrele</b> tusuna basin; sectiginiz metod ile sifrelenen not
+                asagidaki <b>Sifreli Not</b> bolumune tasinacaktir. Eger sifreli notunuzu
+                kamufle etmek istiyorsaniz <a href="stego.html">steganografi</a> sayfami ziyaret edin.
+            </p>
+            <!-- -FULL -->
+
+            <p align="center">
+                <textarea name="text" rows="16" cols="80"
+                          style="background-color: rgb(200, 255, 200); color: #000000;"
+                          onfocus="ce();" onblur="ce();" onkeydown="ce();"></textarea>
+                <br />
+                <input type="button" name="encrypt" value="Sifrele" onclick="Encrypt_text();" />
+                &nbsp;
+                <input type="button" value="Temizle" onclick="document.plain.text.value = '';" />
+                &nbsp;
+                <input type="button" value="Sec" onclick="document.plain.text.select();" />
+                <br />
+                <b>Sifreleme:</b>&nbsp;
+                <input type="radio" checked="checked" name="encoding" />&nbsp;Codegroup
+                &nbsp;
+                <input type="radio" name="encoding" />&nbsp;Hexadecimal
+                &nbsp;
+                <input type="radio" name="encoding" />&nbsp;Base&nbsp;64
+            </p>
+        </form>
+
+        <form name="cipher" action="#" onsubmit="return false;">
+            <h3>Sifreli Not</h3>
+
+            <!-- +FULL -->
+            <p>
+                Sifreli bir notun sifresini acmak icin mesaji asagidaki bolume yazin, anahtari
+                <b>Anahtar</b> kismina yazin ve <b>Sifreyi Coz</b> tusuna basin. Sifresi cozulen
+                not <b>Not</b> bolumune tasinacaktir. Sifreli nottan onceki ve sonraki mesajlar
+                gormezden gelinir ve kullanilan sifreleme yontemi otomatik olarak belirlenir.
+                Bir seferda yalnizca bir notu desifre edebilirsiniz. Birden fazla not yazmaniz /
+                yapistirmaniz durumunda notlardan yalnizca ilki desifre edilecektir.
+            </p>
+            <!-- -FULL -->
+
+            <p align="center">
+                <textarea name="text" rows="16" cols="80"
+                          style="background-color: rgb(255, 200, 200); color: #000000;"
+                          onfocus="ce();" onblur="ce();" onkeydown="ce();"></textarea>
+                <br />
+                <input type="button" name="decrypt" value="Sifreyi Coz" onclick="Decrypt_text();" />
+                &nbsp;
+                <input type="button" value="Temizle" onclick="document.cipher.text.value = '';" />
+                &nbsp;
+                <input type="button" value="Sec" onclick="document.cipher.text.select();" />
+            </p>
+        </form>
+    </div>
+</div>
+</body>
+</html>
