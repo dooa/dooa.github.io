@@ -24,10 +24,8 @@ textarea {
 }
 textearea, textbox{
 	min-height:310px;
-}
-
-#logo img {
-	margin-left: auto;
-	margin-right: auto;
-	display: block;
+}	
+#logo{	
+	display: table;
+    margin: 0 auto; 
 }
