@@ -128,6 +128,61 @@
 	document.results.text.value += sig;
 	delete prng;
     }
+		
+		 function setSeed() {
+    	if (document.seed.keytype[0].checked) {
+    	    var s = encode_utf8(document.seed.text.value);
+	    var i, kmd5e, kmd5o;
+
+	    if (s.length == 1) {
+	    	s += s;
+	    }
+	    
+	    md5_init();
+	    for (i = 0; i < s.length; i += 2) {
+	    	md5_update(s.charCodeAt(i));
+	    }
+	    md5_finish();
+	    kmd5e = byteArrayToHex(digestBits);
+	    
+	    md5_init();
+	    for (i = 1; i < s.length; i += 2) {
+	    	md5_update(s.charCodeAt(i));
+	    }
+	    md5_finish();
+	    kmd5o = byteArrayToHex(digestBits);
+
+	    var hs = kmd5e + kmd5o;
+	    seed =  hexToByteArray(hs);
+	} else {    	    // Hexadecimal key
+    	    var s = document.seed.text.value;
+    	    var hexDigits = "0123456789abcdefABCDEF";
+	    var hs = "", i, bogus = false;
+
+	    for (i = 0; i < s.length; i++) {
+		var c = s.charAt(i);
+		if (hexDigits.indexOf(c) >= 0) {
+	    	    hs += c;
+		} else {
+		    bogus = true;
+		}
+	    }
+	    if (bogus) {
+	    	alert("Error: Improper character(s) in hexadecimal key.");
+	    }
+	    if (hs.length > (keySizeInBits / 4)) {
+	    	alert("Warning: hexadecimal key exceeds " +
+		      (keySizeInBits / 4) + " digit maximum; truncated.");
+		document.seed.text.value = hs = hs.slice(0, 64);
+	    } else {
+	    
+	    	while (hs.length < (keySizeInBits / 4)) {
+		    hs += "0";
+		}
+    	    }
+	    seed =  hexToByteArray(hs);
+    	}
+    }
 	</script>
 
 </head>
