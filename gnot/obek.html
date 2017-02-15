@@ -287,42 +287,37 @@
 <h3>Soz Obekleri</h3>
 
 <p align="center">
-<textarea name="text" rows="24" cols="80" class="form-control"
+<textarea id="obekler" name="text" rows="24" cols="80" class="form-control"
     style="max-width: 550px; resize: vertical; background-color: rgb(250, 250, 250); color: #000000;"
     onfocus="ce();" onblur="ce();" onclick="ce();" onkeydown="ce();">
 </textarea>
 
 <br />
 
-<input type="button" name="generate" value=" Generate " onfocus="ce();" onblur="ce();" onclick="ce(); GeneratePassPhrases();" />
-&nbsp;
-<input type="button" value=" Clear " onfocus="ce();" onblur="ce();" onclick="ce(); document.results.text.value = '';" />
-&nbsp;
-<input type="reset" value=" Reset " onfocus="ce();" onblur="ce();" onclick="ce();" />
-&nbsp;
-<input type="button" value=" Select " onfocus="ce();" onblur="ce();" onclick="ce(); document.results.text.select();" />
+<input type="button" name="generate" value="Uret" onfocus="ce();" onblur="ce();" onclick="ce(); GeneratePassPhrases();" />
+<input type="button" value="Temizle" onfocus="ce();" onblur="ce();" onclick="ce(); document.results.text.value = '';" />
+<input type="reset" value="Sifirla" onfocus="ce();" onblur="ce();" onclick="ce();" />
+<button class="btn btn-primary btn-sm" data-clipboard-target="#obekler">Panoya kopyala</button>
 </p>
 
 <p align="center">
-Phrases:&nbsp;<input type="text" name="howmany" size="4" maxlength="6" value="20"
+Obek: <input type="text" name="howmany" size="4" maxlength="6" value="20" class="form-control" placeholder="Obek Sayisi"
        onfocus="ce();" onblur="ce();" onkeydown="ce();" />
-&nbsp;
-Words:&nbsp;<input type="text" name="howlong" size="4" maxlength="6" value="6"
+Kelime: <input type="text" name="howlong" size="4" maxlength="6" value="6" class="form-control" placeholder="Kelime Sayisi"
        onfocus="ce();" onblur="ce();" onkeydown="ce();" />
-&nbsp;
-Bits:&nbsp;<input type="text" name="bits" size="5" maxlength="6" value=""
+Bit: <input type="text" name="bits" size="5" maxlength="6" value="" class="form-control" placeholder="Bit"
        onfocus="ce();" onblur="ce(); bitsWord();" onkeydown="ce();" />
        
 <br />
 
-<input type="checkbox" checked="checked" name="number"
-       onfocus="ce();" onblur="ce();" onkeydown="ce();" />&nbsp;Number
+<input type="checkbox" checked="checked" name="number" class="form-control"
+       onfocus="ce();" onblur="ce();" onkeydown="ce();" />&nbsp;Sira No
 &nbsp;
-<input type="checkbox" name="uppercase"
-       onfocus="ce();" onblur="ce();" onkeydown="ce();" />&nbsp;upper&nbsp;case
+<input type="checkbox" name="uppercase" class="form-control"
+       onfocus="ce();" onblur="ce();" onkeydown="ce();" />&nbsp;Buyuk Harf
 &nbsp;
-<input type="checkbox" name="signatures"
-       onfocus="ce();" onblur="ce();" onkeydown="ce();" />&nbsp;Include&nbsp;signatures
+<input type="checkbox" name="signatures" class="form-control"
+       onfocus="ce();" onblur="ce();" onkeydown="ce();" />&nbsp;Imzalari Ekle
        
 </p>
 </form>
