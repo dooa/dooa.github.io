@@ -45,6 +45,89 @@
     document.seed.text.value = k;
     delete prng;
 }
+		
+		function GeneratePassPhrases() {
+    	var i, j, w, sign = document.results.signatures.checked, sig = "";
+	
+	i = document.results.howmany.value;
+	if (isNaN(i) || (i < 1)) {
+	    i = 1;
+	}
+	if (i > 100) {
+	    i = 100;
+	}
+	if (i != document.results.howmany.value) {
+	    document.results.howmany.value = i;
+	}
+	
+	i = document.results.howlong.value;
+	if (isNaN(i) || (i < 2)) {
+	    i = 2;
+	}
+	if (i > 24) {
+	    i = 24;
+	}
+	if (i != document.results.howlong.value) {
+	    document.results.howlong.value = i;
+	}
+	
+	    document.results.bits.value = Math.floor(Math.LOG2E *
+	    Math.log(twords) * document.results.howlong.value);
+	
+	if (sign) {
+	    sig = "\n==========  MD5 Signatures  ==========\n".replace(/=/g,"-");
+	}
+	
+	
+	setSeed();
+	prng = new AESprng(seed);
+	
+    	document.results.text.value = "";
+	
+    	for (i = 0; i < document.results.howmany.value; i++) {
+	    var k = "", nw = 0;
+	    while (nw < document.results.howlong.value) {
+		if (k.length > 0) {
+		    k += " ";
+		}
+    	    	k += indexWord(prng.nextInt(twords));
+		nw++;
+	    }
+
+	    
+    	    if (document.results.uppercase.checked) {
+	    	k = k.toUpperCase();
+	    }
+			
+	    if (sign) {	
+		md5_init();
+		for (j = 0; j < k.length; j++) {
+	    	    md5_update(k.charCodeAt(j));
+		}
+		md5_finish();
+        	var n, hex = "0123456789ABCDEF";
+
+        	for (n = 0; n < 16; n++) {
+                    sig += hex.charAt(digestBits[n] >> 4);
+                    sig += hex.charAt(digestBits[n] & 0xF);
+        	}
+        	sig += "\n";
+	    }
+	
+    	    if (document.results.number.checked) {
+	    	var ndig = Math.floor(Math.LOG10E * Math.log(document.results.howmany.value)) + 1;
+		var nu = "" + (i + 1);
+		
+		while (nu.length < ndig) {
+		    nu = " " + nu;
+		}
+		k = nu + ") " + k;
+	    }
+    	    document.results.text.value += k + "\n";
+	}
+	document.results.text.value += sig;
+	delete prng;
+    }
 	</script>
 
 </head>
