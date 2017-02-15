@@ -294,20 +294,21 @@
 
 <br />
 
-<input type="button" name="generate" value="Uret" onfocus="ce();" onblur="ce();" onclick="ce(); GeneratePassPhrases();" />
-<input type="button" value="Temizle" onfocus="ce();" onblur="ce();" onclick="ce(); document.results.text.value = '';" />
-<input type="reset" value="Sifirla" onfocus="ce();" onblur="ce();" onclick="ce();" />
+<input class="btn btn-primary btn-sm" type="button" name="generate" value="Uret" onfocus="ce();" onblur="ce();" onclick="ce(); GeneratePassPhrases();" />
+<input class="btn btn-primary btn-sm" type="button" value="Temizle" onfocus="ce();" onblur="ce();" onclick="ce(); document.results.text.value = '';" />
+<input class="btn btn-primary btn-sm" type="reset" value="Sifirla" onfocus="ce();" onblur="ce();" onclick="ce();" />
 <button class="btn btn-primary btn-sm" data-clipboard-target="#obekler">Panoya kopyala</button>
 </p>
 
 <p align="center">
-Obek: <input type="text" name="howmany" size="4" maxlength="6" value="20" class="form-control" placeholder="Obek Sayisi"
-       onfocus="ce();" onblur="ce();" onkeydown="ce();" />
-Kelime: <input type="text" name="howlong" size="4" maxlength="6" value="6" class="form-control" placeholder="Kelime Sayisi"
-       onfocus="ce();" onblur="ce();" onkeydown="ce();" />
-Bit: <input type="text" name="bits" size="5" maxlength="6" value="" class="form-control" placeholder="Bit"
-       onfocus="ce();" onblur="ce(); bitsWord();" onkeydown="ce();" />
-       
+<div class="form-group">
+	<div class="col-md-4">Obek: <input type="text" name="howmany" size="4" maxlength="6" value="20" class="form-control" placeholder="Obek Sayisi"
+			  onfocus="ce();" onblur="ce();" onkeydown="ce();" /></div>
+	<div class="col-md-4">Kelime: <input type="text" name="howlong" size="4" maxlength="6" value="6" class="form-control" placeholder="Kelime Sayisi"
+			    onfocus="ce();" onblur="ce();" onkeydown="ce();" /></div>
+	<div class="col-md-4">Bit: <input type="text" name="bits" size="5" maxlength="6" value="" class="form-control" placeholder="Bit"
+			 onfocus="ce();" onblur="ce(); bitsWord();" onkeydown="ce();" /></div>
+</div>       
 <br />
 
 <input type="checkbox" checked="checked" name="number" class="form-control"
