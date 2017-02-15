@@ -25,8 +25,16 @@ textarea {
 textearea, textbox{
 	min-height:310px;
 }	
+<<<<<<< HEAD:gnot/content/site.css
 
 .logo{
 	max-width: 20%;
     max-height: 20%;
 }
+=======
+#logo{	
+	display: table;
+    margin: 0 auto; 
+	
+}
+>>>>>>> origin/master:gnot/content/site.css
