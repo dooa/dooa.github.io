@@ -2,6 +2,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta author="Doga Gencer">
     <title>GNot - Mesaj Sifrele</title>
     <link href="content/bootstrap.css" rel="stylesheet"/>
 	<link href="content/site.css" rel="stylesheet"/>
@@ -15,11 +16,13 @@
 	<script src="scripts/javascrypt/armour.js"></script>
 	<script src="scripts/javascrypt/utf-8.js"></script>
 	<script src="scripts/javascrypt/jscrypt.js"></script>
-
-
+	<script src="scripts/clipboard.min.js"></script>
 </head>
 <body>
 <div class="container">
+	<div id="logo">
+		<img class="img-responsive" src="images/gnot.png">
+	</div>
     <div id="Govde" class="text-center">
         <form name="key" action="#" onsubmit="return false;">
             <h3>Anahtar</h3>
@@ -42,19 +45,18 @@
             <!-- -FULL -->
 
             <p align="center">
-                <input type="text" name="text" size="80" maxlength="1024"
-                       style="background-color: rgb(255, 255, 200); color: #000000; font-family: monospace;"
+                <input id="anahtar" type="text" name="text" size="80" maxlength="1024" class="form-control"
+                       style="background-color: rgb(250, 250, 200); color: #000000; font-family: monospace;"
                        onfocus="ce();" onblur="ce();" onkeydown="ce();" />
                 <br />
-                <input type="radio" checked="checked" name="keytype" />&nbsp;Metin
-                &nbsp;
+                <input type="radio" checked="checked" name="keytype" />&nbsp;Metin                
                 <input type="radio" name="keytype" />&nbsp;Hexadecimal
-                &nbsp;
-                <input type="button" value="Olustur" onclick="Generate_key();" />
-                &nbsp;
-                <input type="button" value="Temizle" onclick="document.key.text.value = '';" />
-                &nbsp;
-                <input type="button" value="Sec" onclick="document.key.text.select();" />
+				<p>                
+					<input type="button" class="btn btn-primary btn-sm" value="Olustur" onclick="Generate_key();" />                
+					<input type="button" class="btn btn-primary btn-sm" value="Temizle" onclick="document.key.text.value = '';" />                
+					<!--<input type="button" class="btn btn-primary btn-sm" value="Sec" onclick="document.key.text.select();" />--!>
+					<button class="btn btn-primary btn-sm" data-clipboard-target="#anahtar">Panoya kopyala</button>
+				</p>
             </p>
         </form>
 
@@ -74,22 +76,20 @@
             <!-- -FULL -->
 
             <p align="center">
-                <textarea name="text" rows="16" cols="80"
-                          style="background-color: rgb(200, 255, 200); color: #000000;"
+                <textarea id="not" name="text" rows="16" cols="80" class="form-control"
+                          style="max-width: 550px; resize: vertical; background-color: rgb(250, 250, 250); color: #000000;"
                           onfocus="ce();" onblur="ce();" onkeydown="ce();"></textarea>
                 <br />
-                <input type="button" name="encrypt" value="Sifrele" onclick="Encrypt_text();" />
-                &nbsp;
-                <input type="button" value="Temizle" onclick="document.plain.text.value = '';" />
-                &nbsp;
-                <input type="button" value="Sec" onclick="document.plain.text.select();" />
-                <br />
-                <b>Sifreleme:</b>&nbsp;
-                <input type="radio" checked="checked" name="encoding" />&nbsp;Codegroup
-                &nbsp;
-                <input type="radio" name="encoding" />&nbsp;Hexadecimal
-                &nbsp;
-                <input type="radio" name="encoding" />&nbsp;Base&nbsp;64
+				<p>
+					<b>Sifreleme:</b>&nbsp;
+					<input type="radio" checked="checked" name="encoding" />&nbsp;Codegroup
+					<input type="radio" name="encoding" />&nbsp;Hexadecimal
+					<input type="radio" name="encoding" />&nbsp;Base64
+				</p>
+                <input type="button" class="btn btn-primary btn-sm" name="encrypt" value="Sifrele" onclick="Encrypt_text();" />
+				<input type="button" class="btn btn-primary btn-sm" value="Temizle" onclick="document.plain.text.value = '';" />
+                <!--<input type="button" class="btn btn-primary btn-sm" value="Sec" onclick="document.plain.text.select();" />--!>	
+				<button class="btn btn-primary btn-sm" data-clipboard-target="#not">Panoya kopyala</button>
             </p>
         </form>
 
@@ -108,18 +108,26 @@
             <!-- -FULL -->
 
             <p align="center">
-                <textarea name="text" rows="16" cols="80"
-                          style="background-color: rgb(255, 200, 200); color: #000000;"
+                <textarea id="sifreliNot" name="text" rows="16" cols="80" class="form-control"
+                          style="max-width: 550px; resize: vertical; background-color: rgb(250, 250, 250); color: #000000;"
                           onfocus="ce();" onblur="ce();" onkeydown="ce();"></textarea>
                 <br />
-                <input type="button" name="decrypt" value="Sifreyi Coz" onclick="Decrypt_text();" />
-                &nbsp;
-                <input type="button" value="Temizle" onclick="document.cipher.text.value = '';" />
-                &nbsp;
-                <input type="button" value="Sec" onclick="document.cipher.text.select();" />
+                <input type="button" class="btn btn-primary btn-sm" name="decrypt" value="Sifreyi Coz" onclick="Decrypt_text();" />                
+                <input type="button" class="btn btn-primary btn-sm" value="Temizle" onclick="document.cipher.text.value = '';" />
+                <!--<input type="button" class="btn btn-primary btn-sm" value="Sec" onclick="document.cipher.text.select();" />--!>
+				<button class="btn btn-primary btn-sm" data-clipboard-target="#sifreliNot">Panoya kopyala</button>
             </p>
         </form>
     </div>
 </div>
+<script>
+    var clipboard = new Clipboard('.btn');
+    clipboard.on('success', function(e) {
+        console.log(e);
+    });
+    clipboard.on('error', function(e) {
+        console.log(e);
+    });
+</script>
 </body>
 </html>
